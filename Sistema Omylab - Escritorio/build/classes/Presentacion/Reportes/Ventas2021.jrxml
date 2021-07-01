@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f315b9cd-42be-4b5d-a671-22f32b761a09">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 'Enero' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-01-00' AND '2021-01-31'
+UNION
+(SELECT 'Febrero' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-02-00' AND '2021-02-31')
+UNION
+(SELECT 'Marzo' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-03-00' AND '2021-03-31')
+UNION
+(SELECT 'Abril' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-04-00' AND '2021-04-31')
+UNION
+(SELECT 'Mayo' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-05-00' AND '2021-05-31')
+UNION
+(SELECT 'Junio' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-06-00' AND '2021-06-31')
+UNION
+(SELECT 'Julio' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-07-00' AND '2021-07-31')
+UNION
+(SELECT 'Agosto' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-08-00' AND '2021-08-31')
+UNION
+(SELECT 'Setiembre' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-09-00' AND '2021-09-31')
+UNION
+(SELECT 'Octubre' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-10-00' AND '2021-10-31')
+UNION
+(SELECT 'Noviembre' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-11-00' AND '2021-11-31')
+UNION
+(SELECT 'Diciembre' AS MES, COUNT(idDoc_compra_venta) AS CANTIDAD, SUM(total) AS TOTAL FROM doc_compra_venta
+WHERE fecha BETWEEN '2021-12-00' AND '2021-12-31')]]>
+	</queryString>
+	<field name="MES" class="java.lang.String"/>
+	<field name="CANTIDAD" class="java.lang.Long"/>
+	<field name="TOTAL" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="66a334c7-08cb-41b6-8ab9-ba019592d26d"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Ventas - 2021]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="0" y="48" width="340" height="22" uuid="23f3c939-13f1-487e-b411-d6255006c760"/>
+				<text><![CDATA[Cantidad de ventas por mes del año 2021]]></text>
+			</staticText>
+			<image>
+				<reportElement x="340" y="0" width="213" height="70" uuid="7a1bd89f-26fa-4503-b10f-e9a72557d426"/>
+				<imageExpression><![CDATA["D:\\Universidad\\Laboratorios Programación III\\Omylab\\src\\Presentacion\\Imagenes\\LogoOmylab.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="74875973-b5d4-4fdd-9f78-9d692bc173e3"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="185" height="15" uuid="0f1718b7-822d-4e5d-8dbb-34ce8ff83100"/>
+				<text><![CDATA[MES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="185" y="19" width="185" height="15" uuid="fda380dd-5ee2-4be3-b8d4-51db686c9a29"/>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="370" y="19" width="185" height="15" uuid="829b4988-a48e-4e9e-9026-fc712bc237ec"/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="36188195-7d7a-4e97-8c84-e75c7b5b87d9"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="185" height="15" uuid="9aa16898-6cb6-42e0-88d7-3cc95ee2664a"/>
+				<textFieldExpression><![CDATA[$F{MES}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="185" y="0" width="185" height="15" uuid="a6cfb6c7-20b7-49a7-9f76-dbfb31646f5d"/>
+				<textFieldExpression><![CDATA[$F{CANTIDAD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="370" y="0" width="185" height="15" uuid="4795e205-6d72-4d59-960a-afe858dd7abd"/>
+				<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="d76bc737-f915-4cee-bcf7-b5d1cac54f00"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="a8e712c5-60c5-4644-9d2a-d4c16802cecd"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="e6fa017a-f82f-4329-b438-c5098f4f4e21"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="79121f73-8e17-4053-a5a4-70a2443c9100"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
