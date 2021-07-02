@@ -15,21 +15,27 @@
         <%
             Connection con;
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3309/laboratorio_omylab","root","");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/laboratorio_omylab2","root","");
             String ayuda=request.getParameter("id2");
             String nro=request.getParameter("id");
+            double CostoTotal=0;
+            String costo="";
+            String costot="";
             String orden="";
             String analisis="";
             if(ayuda!=null){
                 nro=ayuda.split("-")[0];
                 orden= ayuda.split("-")[1];
                 analisis= ayuda.split("-")[2];
+                costo= ayuda.split("-")[3];
+                costot=ayuda.split("-")[4];
+                CostoTotal=Double.parseDouble(costot)-Double.parseDouble(costo);
             }
             
             String SQL="delete from orden_has_analisis where (idOrden="+orden+" and idAnalisis="+analisis+")";
             PreparedStatement st=con.prepareStatement(SQL);
             st.executeUpdate();
-            response.sendRedirect("agregar_analisis.jsp?id2="+ nro+"-"+orden);
+            response.sendRedirect("agregar_analisis.jsp?id3="+ nro+"-"+orden+"-"+CostoTotal);
           %>
     </body>
 </html>

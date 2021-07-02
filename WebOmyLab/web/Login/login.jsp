@@ -4,6 +4,8 @@
     Author     : Mathius
 --%>
 <%@page import= "java.sql.*" %>
+<%@page import= "java.util.Date"%>
+<%@page import= "java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="javax.swing.JOptionPane"%>
 <!DOCTYPE html>
@@ -65,17 +67,26 @@
 					</div>
 
 				</form>
-                            <%          
+         <%          
             
             Connection con;
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3309/laboratorio_omylab","root","");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/laboratorio_omylab2","root","");
             //dni="71390996";
             
-            String SQL="select nro_documento,clave from cliente";
+            String SQL="select nombre,apellido,nro_documento,clave from cliente";
             PreparedStatement st=con.prepareStatement(SQL);
             ResultSet resultado=st.executeQuery();
             
+            String fech="";
+            String tipo2="";
+            Date date=new Date();
+            SimpleDateFormat formatoFecha=new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
+            fech=formatoFecha.format(date);
+            
+            String ape="";
+            String nom="";
+            String accion="";
             String cla="";
             String dni ="";
             String a="";
@@ -87,7 +98,16 @@
                 
                 a=resultado.getString("nro_documento");
                 c=resultado.getString("clave");
+                nom=resultado.getString("nombre");
+                ape=resultado.getString("apellido");
                 if(a.equals(dni) && c.equals(cla)){
+                    
+                    tipo2="Iniciar Sesion";
+                    accion= nom+" "+ape+" Inicio sesion";
+                    PreparedStatement rs=con.prepareStatement("insert into historial_cliente(fecha,"
+                   + " tipo,"+"accion,"+"nro_documento) values('"+fech+"','"+tipo2+"','"+accion+"','"+a+"')");
+                    rs.executeUpdate();
+           
                     response.sendRedirect("../index2.jsp?id="+ resultado.getString("nro_documento"));
                  }
 

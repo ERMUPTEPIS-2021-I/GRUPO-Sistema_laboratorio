@@ -21,7 +21,7 @@
         <%
             Connection con;
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3309/laboratorio_omylab","root","");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/laboratorio_omylab2","root","");
             
             String nro=request.getParameter("id");//id es el parametro que bien de cargo
             String SQL="select * from analisis";

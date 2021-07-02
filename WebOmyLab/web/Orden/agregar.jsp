@@ -15,17 +15,22 @@
         <%
             Connection con;
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3309/laboratorio_omylab","root","");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/laboratorio_omylab2","root","");
             String ayuda=request.getParameter("id2");
             String nro=request.getParameter("id");
+            double CostoTotal=0;
             String orden="";
+            String costo="";
+            String costot="";
             String analisis="";
             if(ayuda!=null){
                 nro=ayuda.split("-")[0];
                 orden= ayuda.split("-")[1];
                 analisis= ayuda.split("-")[2];
+                costo= ayuda.split("-")[3];
+                costot=ayuda.split("-")[4];
             }
-            
+            CostoTotal=Double.parseDouble(costot);
             String SQL5="select * from orden_has_analisis";
                 PreparedStatement sq=con.prepareStatement(SQL5);
                 ResultSet resultado5=sq.executeQuery();
@@ -37,15 +42,16 @@
                     e=resultado5.getString("idOrden");
                     if(orden.equals(e) && analisis.equals(a)){
                         aux=1;
-                        response.sendRedirect("agregar_analisis.jsp?id2="+ nro+"-"+orden);
+                        response.sendRedirect("agregar_analisis.jsp?id3="+ nro+"-"+orden+"-"+CostoTotal);
                     }
 
                 }
                 if(aux==0){
                     PreparedStatement ps=con.prepareStatement("insert into orden_has_analisis(idOrden,"
                    + " idAnalisis) values('"+orden+"','"+analisis+"')");
+                    CostoTotal= CostoTotal+Double.parseDouble(costo);
                     ps.executeUpdate();
-                    response.sendRedirect("agregar_analisis.jsp?id2="+ nro+"-"+orden);
+                    response.sendRedirect("agregar_analisis.jsp?id3="+ nro+"-"+orden+"-"+CostoTotal);
                 }
             
           %>

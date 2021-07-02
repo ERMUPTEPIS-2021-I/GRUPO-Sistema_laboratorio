@@ -17,7 +17,7 @@
          <%
             Connection con;
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3309/laboratorio_omylab","root","");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/laboratorio_omylab2","root","");
             String ayuda=request.getParameter("id2");
             String nro=request.getParameter("id");
             String orden="";
@@ -26,7 +26,7 @@
                 nro=ayuda.split("-")[0];
                 orden= ayuda.split("-")[1];
             }
-                String SQL5="select a.idAnalisis,a.nombre from orden_has_analisis o INNER JOIN analisis a on a.idAnalisis = o.idAnalisis where o.idOrden="+orden;
+                String SQL5="select a.idAnalisis,a.nombre,o.valor_min,o.valor_max,o.resultado from orden_has_analisis o INNER JOIN analisis a on a.idAnalisis = o.idAnalisis where o.idOrden="+orden;
                 PreparedStatement sq=con.prepareStatement(SQL5);
                 ResultSet resultado5=sq.executeQuery();
                 
@@ -36,17 +36,23 @@
 
             <tr>
                 <th class="text-center">Analisis</th>
+                <th class="text-center">Valor Min</th>
+                <th class="text-center">Valor Max</th>
+                <th class="text-center">Resultado</th>
             </tr>
             <%
              while (resultado5.next()) {
               %>
             <tr>
                <td class="text-center"><%= resultado5.getString("a.nombre") %></td>
+               <td class="text-center"><%= resultado5.getString("o.valor_min") %></td>
+               <td class="text-center"><%= resultado5.getString("o.valor_max") %></td>
+               <td class="text-center"><%= resultado5.getString("o.resultado") %></td>
 
             </tr>
             <% } %>
         </table>
-        <h3> <a class="btn btn-info btn-lg"  href="../index2.jsp?id=<%= nro%>" >Regresar</a></h3>
+        <h3> <a class="btn btn-info btn-lg"  href="listar.jsp?id=<%= nro%>" >Regresar</a></h3>
         </div>
     </body>
 </html>

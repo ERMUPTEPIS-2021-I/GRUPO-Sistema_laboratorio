@@ -17,7 +17,7 @@
         <%
             Connection con;
             Class.forName("com.mysql.jdbc.Driver");
-            con=DriverManager.getConnection("jdbc:mysql://localhost:3309/laboratorio_omylab","root","");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/laboratorio_omylab2","root","");
             
             String nro=request.getParameter("id");//id es el parametro que bien de cargo
             
@@ -30,7 +30,7 @@
         <%  
             //Connection con;
             //Class.forName("com.mysql.jdbc.Driver");
-            //con=DriverManager.getConnection("jdbc:mysql://localhost:3309/db_ejemplo","root","");
+            //con=DriverManager.getConnection("jdbc:mysql://localhost:3306/db_ejemplo","root","");
             //String SQL="CALL USP_S_ListarTodoslosCargos()";
             String SQL2="select idOrden,fecha,estado from orden where Cliente_nro_documento="+nro;
             PreparedStatement sr=con.prepareStatement(SQL2);
@@ -45,28 +45,40 @@
                 <th class="text-center">idOrden</th>
                 <th class="text-center">Fecha</th>
                 <th class="text-center">Estado</th>
+                <th class="text-center">Costo</th>
                 <th class="text-center">Detalle</th>
+                
  
             </tr>
             
             <%
                 while (resultado2.next()) {
+                    
+                    String SQL="select * from doc_compra_venta where idOrden="+resultado2.getString("idOrden");
+                    PreparedStatement sa=con.prepareStatement(SQL);
+                    ResultSet resultado3=sa.executeQuery();
+                    String costo="";
+                    while (resultado3.next()) {
+                        costo=resultado3.getString("total");
+                    }
             %>
             <tr>
                <td class="text-center"><%= resultado2.getString("idOrden") %></td>
                <td class="text-left"><%= resultado2.getString("fecha") %></td>
                <td class="text-left"><%= resultado2.getString("estado") %></td>
+               <td class="text-left"><%= costo%></td>
                <td class="text-center">
                    
                    <a class="btn btn-info btn-sm" href="detalle.jsp?id2=<%= nro+"-"+resultado2.getString("idOrden")%>">Ver Detalle</a> 
                 
                </td>
             </tr>
+            
                 <% } %>
             
         </table>
         <hr>
-        <h3> <a class="btn btn-info btn-lg"  href="../index2.jsp?id=<%= nro%>" >Inicio</a></h3>
+        <h3> <a class="btn btn-info btn-lg"  href="../index.jsp?id=<%= nro%>" >Inicio</a></h3>
    </div>
     </body>
 </html>
